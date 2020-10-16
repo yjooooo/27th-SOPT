@@ -143,7 +143,7 @@
   idpwEditor.commit()
   ```
 
-- ➕주의사항➕
-  Editor.put()을 했다고 데이터가 바로 저장된 것은 No!!
-  Editor.commit() 또는 Editor.apply()를 호출해줘야 한다.
+- ➕주의사항➕<br>
+  Editor.put()을 했다고 데이터가 바로 저장된 것은 No!!<br>
+  Editor.commit() 또는 Editor.apply()를 호출해줘야 한다.<br>
   Editor.commit()은 동기적으로 동작하기 때문에 처리 중인 쓰레드가 blocking 될 수 있기 때문에 저장될 때까지 기다릴 필요가 없다면 비동기적으로 동작하는 Editor.apply()를 사용하는 것이 좋다고 한다.
