@@ -58,21 +58,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-/*
-class MyApplication: Application(){
-    companion object{
-        lateinit var prefs: MySharedPreferences
-    }
-}
-
-class MySharedPreferences(context: Context){
-    val prefs: SharedPreferences = context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
-
-    fun getString(key: String, value: String): String{
-        return prefs.getString(key, value).toString()
-    }
-    fun setString(key: String, str: String){
-        prefs.edit().putString(key, str).apply()
-    }
-}
-*/
