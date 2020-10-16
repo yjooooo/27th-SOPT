@@ -16,11 +16,11 @@
 
 1. SignUpActivity 생성해서 회원가입 화면 구현하기
 
-2. 회원가입 성공 후, 로그인 화면으로 돌아오면 아이디와 비밀번호가 입력되어 있도록 구현하기
-   SignUpActivity에서 MainActivity로 돌아올 때 아이디와 비밀번호 넘겨주기 
+2. 회원가입 성공 후, 로그인 화면으로 돌아오면 아이디와 비밀번호가 입력되어 있도록 구현하기<br>
+   SignUpActivity에서 MainActivity로 돌아올 때 아이디와 비밀번호 넘겨주기<br>
    ▶ StartActivityForResult()사용
 
-3. 로그인 성공한다면 재실행할 때 자동로그인 구현하기
+3. 로그인 성공한다면 재실행할 때 자동로그인 구현하기<br>
    ▶ SharedPreferences()사용
 
    
@@ -66,9 +66,9 @@
 
 - startActivityForResult()를 사용하려면 Request Code와 Result Code가 필요하다. 
 
-  - Request Code : 각 액티비티에 부여해준 값.
+  - Request Code : 각 액티비티에 부여해준 값.<br>
     ▶ 각 액티비티마다 다르게 지정 가능. 이 값에 따라 처리할 것을 달리할 수 있음.
-  - Result Code : 액티비티가 정상적으로 왔는지 확인해주는 값.
+  - Result Code : 액티비티가 정상적으로 왔는지 확인해주는 값.<br>
     ▶ 자식 액티비티에서 setResult()를 통해 값 지정 가능.
   - data : 각 액티비티에서 받아온 intent들.
 
