@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Sopt"
+        android:textSize="50sp"
+        android:textColor="#fff000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="50dp"
+        android:text="이름"
+        android:textSize="25sp"
+        android:textColor="#fff000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/s_nameEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="63dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        android:textColor="#fff000"
+        android:textColorHint="#77fff000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="아이디"
+        android:textSize="25sp"
+        android:textColor="#fff000"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/s_nameEdt" />
+
+    <EditText
+        android:id="@+id/s_idEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="ID"
+        android:textColor="#fff000"
+        android:textColorHint="#77fff000"
+        app:layout_constraintEnd_toEndOf="@+id/s_nameEdt"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="비밀번호"
+        android:textSize="25sp"
+        android:textColor="#fff000"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/s_idEdt" />
+
+    <EditText
+        android:id="@+id/s_pwEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="PW"
+        android:textColor="#fff000"
+        android:textColorHint="#77fff000"
+        app:layout_constraintEnd_toEndOf="@+id/s_idEdt"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/s_joinBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="회원가입"
+        android:background="@drawable/round_button"
+        app:layout_constraintEnd_toEndOf="@+id/s_pwEdt"
+        app:layout_constraintStart_toStartOf="@+id/s_pwEdt"
+        app:layout_constraintTop_toBottomOf="@+id/s_pwEdt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
