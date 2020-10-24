@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
+//import androidx.lifecycle.MutableLiveData
 import com.yjoos.term_project.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 

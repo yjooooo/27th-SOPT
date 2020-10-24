@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.profile_item_grid.*
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var sampleAdapter: SampleAdapter //나중에 초기화할 것.
@@ -22,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         val detailIntent = Intent(this, DetailActivity::class.java)
 
         sampleAdapter = SampleAdapter(this)
@@ -39,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         main_rcv.layoutManager = LinearLayoutManager(this)
         */
         sampleAdapter.data = mutableListOf(
-            SampleData(1,"꽃길 ", "2012.02.29", "G-Dragon", "댄스, 발라드", R.drawable.flower_road),
+            SampleData(1,"꽃길 ", "2012.02.29", "ttt", "댄스, 발라드", R.drawable.flower_road),
             SampleData(1,"MADE", "2016.12.13", "G-Dragon", "댄스, 발라드", R.drawable.made),
             SampleData(1,"STILL ALIVE", "서울여자대학교", "G-Dragon", "댄스, 발라드", R.drawable.special_alive),
             SampleData(1,"ALIVE", "서울여자대학교", "G-Dragon", "댄스, 발라드", R.drawable.mini5),
