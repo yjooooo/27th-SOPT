@@ -1,9 +1,12 @@
 package com.yjoos.term_project
 
+import android.content.Intent
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.profile_item_list.view.*
@@ -16,7 +19,6 @@ class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener
         //itemView.root 에서 root(xml아이디)이름 같게 하기
         //why? => profile_item_grid.xml과  profile_item_list.xml 두개의 레이아웃이 함께 띄워지는게 아니라 번갈아 띄워지는거라서
         //        아이디 다르게 해서 setOnTouchListener를 각각 적용하면 띄워지지 않은 레이아웃을 가리켜서 null값때문에 오류남!!
-
 
         itemView.root.setOnLongClickListener { v->
             listener.onStartDrag(this)
@@ -33,5 +35,16 @@ class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener
         title.text=data.title
         date.text=data.date
         imageNum.setImageResource(data.imageNum)
+        itemView.setOnClickListener{
+            var detailIntent= Intent(itemView.context, DetailActivity::class.java)
+
+            //클릭한 아이템에 대한 정보를 intent에 담아서 DetailActivity에 보내기
+            detailIntent.putExtra("album", data.title)
+            detailIntent.putExtra("date", data.date)
+            detailIntent.putExtra("producer", data.producer)
+            detailIntent.putExtra("genre", data.genre)
+            detailIntent.putExtra("image", data.imageNum)
+            itemView.context.startActivity(detailIntent)
+        }
     }
 }

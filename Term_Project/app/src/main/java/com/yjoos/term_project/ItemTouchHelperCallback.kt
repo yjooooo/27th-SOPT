@@ -9,7 +9,7 @@ class ItemTouchHelperCallback(val listener:SampleAdapter.ItemActionListener): It
         viewHolder: RecyclerView.ViewHolder
     ): Int {
         val dragFlags = ItemTouchHelper.DOWN or ItemTouchHelper.UP or ItemTouchHelper.START or ItemTouchHelper.END //위아래로 드래그
-        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END //좌우로 스와이프
+        val swipeFlags = ItemTouchHelper.START //좌로 스와이프
         return makeMovementFlags(dragFlags, swipeFlags)
     }
 
@@ -20,6 +20,7 @@ class ItemTouchHelperCallback(val listener:SampleAdapter.ItemActionListener): It
     ): Boolean {
         listener.onItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
         return true
+
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

@@ -11,15 +11,18 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
     var data = mutableListOf<SampleData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.profile_item_list,
-        parent, false)
+        var view =
         when (viewType){
             1->{
-                view = LayoutInflater.from(context).inflate(R.layout.profile_item_list,
+                LayoutInflater.from(context).inflate(R.layout.profile_item_list,
                     parent, false)
             }
             2->{
-                view = LayoutInflater.from(context).inflate(R.layout.profile_item_grid,
+                LayoutInflater.from(context).inflate(R.layout.profile_item_grid,
+                    parent, false)
+            }
+            else ->{
+                LayoutInflater.from(context).inflate(R.layout.profile_item_list,
                     parent, false)
             }
         }
@@ -44,24 +47,9 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
 
     override fun onBindViewHolder(holder: SampleViewHolder, position: Int) {
         holder.onBind(data[position])
-
-        //view에 onClickListenr를 달고, 그 안에서 직접 만든 itemClickListener를 연결시킨다.
-        holder.itemView.setOnClickListener{
-            itemClickListener.onClick(it, position)
-        }
-
     }
 
-    //클릭 인터페이스 정의
-    interface ItemClickListener{
-        fun onClick(view: View, position: Int)
-    }
-    //클릭리스너 선언
-    private lateinit var itemClickListener: ItemClickListener
-    //클릭리스너 등록 메소드
-    fun setItemClickListener(itemClickListener: ItemClickListener){
-        this.itemClickListener = itemClickListener
-    }
+
     
     //아이템 액션 인터페이스 정의
     interface ItemActionListener{
@@ -88,6 +76,5 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
     fun setItemDragListener(itemDragListener: ItemDragListener){
         this.itemDragListener = itemDragListener
     }
-
 
 }

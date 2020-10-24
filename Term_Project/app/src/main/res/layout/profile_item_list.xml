@@ -27,7 +27,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="타이틀"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:textColor="#fff000"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/profile_Image"

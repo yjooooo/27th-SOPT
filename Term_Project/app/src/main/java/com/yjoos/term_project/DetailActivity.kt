@@ -31,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
 
         setContentView(dbinding.root)
 
-        dbinding.sampleData = this
+        dbinding.detailData = this
         title = intent.getStringExtra("album")
         date = intent.getStringExtra("date")
         producer = intent.getStringExtra("producer")
