@@ -117,8 +117,6 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onItemSwiped(position: Int) {
                 sampleAdapter.data.removeAt(position)
-                //Adapter에 데이터가 갱신되었다고 알려주기!
-                sampleAdapter.notifyDataSetChanged()
                 //어댑터에 데이터 삭제 알림
                 sampleAdapter.notifyItemRemoved(position)
                 //Log.d("delete", "${sampleAdapter.data.size}개")
@@ -136,6 +134,7 @@ class HomeActivity : AppCompatActivity() {
 
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(sampleAdapter.getItemActionListener()))
         itemTouchHelper.attachToRecyclerView(main_rcv)
+
 
 
     }
