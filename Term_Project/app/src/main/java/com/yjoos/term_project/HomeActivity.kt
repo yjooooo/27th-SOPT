@@ -78,23 +78,23 @@ class HomeActivity : AppCompatActivity() {
         }
 
         sampleAdapter.data = mutableListOf(
-            SampleData(1, 16,"꽃길 ", "2018.03.13", "G-Dragon", "알앤비", R.drawable.flower_road),
-            SampleData(1, 15,"MADE", "2016.12.13", "G-Dragon", "댄스, 발라드", R.drawable.made),
-            SampleData(1,14,"STILL ALIVE", "2012.06.03", "G-Dragon", "일렉트로닉, 팝, 댄스", R.drawable.special_alive),
-            SampleData(1, 13,"ALIVE", "2012.02.29", "G-Dragon", "발라드, 댄스, 팝, 힙합", R.drawable.mini5),
-            SampleData(1, 12,"스페셜에디션", "2011.04.08", "G-Dragon", "댄스, 팝", R.drawable.special),
-            SampleData(1, 11,"미니앨범 4집", "2011.02.24", "G-Dragon", "댄스, 팝, 힙합", R.drawable.mini4),
-            SampleData(1, 10,"BigBang", "2009.08.19", "G-Dragon", "댄스, 팝, 힙합", R.drawable.bigbang),
-            SampleData(1, 9,"Remember", "2008.11.05", "G-Dragon", "댄스, 팝, 힙합", R.drawable.remember),
-            SampleData(1, 8,"Number1", "2008.10.09", "G-Dragon", "댄스, 팝, 힙합", R.drawable.number1),
-            SampleData(1, 7,"Stand Up", "2008.08.08", "G-Dragon", "댄스, 팝, 힙합", R.drawable.standup),
-            SampleData(1, 6,"For The World", "2008.01.04", "G-Dragon", "댄스, 팝, 힙합", R.drawable.for_the_world),
-            SampleData(1, 5,"Hot Issue", "2007.11.22", "G-Dragon", "댄스, 팝, 힙합", R.drawable.mini2),
-            SampleData(1, 4,"Always", "2007.08.16", "G-Dragon", "댄스, 팝, 힙합", R.drawable.always),
-            SampleData(1, 3,"Bigbang 001", "2006.12.22", "G-Dragon", "틴 팝, 댄스, 팝, 힙합", R.drawable.bigbang001),
-            SampleData(1, 2,"Bigbang 03", "2006.12.22", "G-Dragon", "힙합, 팝", R.drawable.bigbang03),
-            SampleData(1, 1,"Bigbang is V.I.P", "2006.12.22", "G-Dragon", "틴 팝, 힙합", R.drawable.bigbang_is_vip),
-            SampleData(1, 0,"Bigbang First Single", "2006.12.22", "G-Dragon", "틴 팝, 댄스 팝", R.drawable.first_single)
+            SampleData(16,"꽃길 ", "2018.03.13", "G-Dragon", "알앤비", R.drawable.flower_road),
+            SampleData(15,"MADE", "2016.12.13", "G-Dragon", "댄스, 발라드", R.drawable.made),
+            SampleData(14,"STILL ALIVE", "2012.06.03", "G-Dragon", "일렉트로닉, 팝, 댄스", R.drawable.special_alive),
+            SampleData(13,"ALIVE", "2012.02.29", "G-Dragon", "발라드, 댄스, 팝, 힙합", R.drawable.mini5),
+            SampleData(12,"스페셜에디션", "2011.04.08", "G-Dragon", "댄스, 팝", R.drawable.special),
+            SampleData(11,"미니앨범 4집", "2011.02.24", "G-Dragon", "댄스, 팝, 힙합", R.drawable.mini4),
+            SampleData(10,"BigBang", "2009.08.19", "G-Dragon", "댄스, 팝, 힙합", R.drawable.bigbang),
+            SampleData(9,"Remember", "2008.11.05", "G-Dragon", "댄스, 팝, 힙합", R.drawable.remember),
+            SampleData(8,"Number1", "2008.10.09", "G-Dragon", "댄스, 팝, 힙합", R.drawable.number1),
+            SampleData(7,"Stand Up", "2008.08.08", "G-Dragon", "댄스, 팝, 힙합", R.drawable.standup),
+            SampleData(6,"For The World", "2008.01.04", "G-Dragon", "댄스, 팝, 힙합", R.drawable.for_the_world),
+            SampleData(5,"Hot Issue", "2007.11.22", "G-Dragon", "댄스, 팝, 힙합", R.drawable.mini2),
+            SampleData(4,"Always", "2007.08.16", "G-Dragon", "댄스, 팝, 힙합", R.drawable.always),
+            SampleData(3,"Bigbang 001", "2006.12.22", "G-Dragon", "틴 팝, 댄스, 팝, 힙합", R.drawable.bigbang001),
+            SampleData(2,"Bigbang 03", "2006.12.22", "G-Dragon", "힙합, 팝", R.drawable.bigbang03),
+            SampleData(1,"Bigbang is V.I.P", "2006.12.22", "G-Dragon", "틴 팝, 힙합", R.drawable.bigbang_is_vip),
+            SampleData(0,"Bigbang First Single", "2006.12.22", "G-Dragon", "틴 팝, 댄스 팝", R.drawable.first_single)
         )
         //Adapter에 데이터가 갱신되었다고 알려주기!
         sampleAdapter.notifyDataSetChanged()
@@ -161,19 +161,14 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             }
             R.id.change_linear -> {
-                for (i in 0 until sampleAdapter.data.size) {
-                    sampleAdapter.data[i].viewType = 1
-                }
-
+                sampleAdapter.changeViewType = 1
                 main_rcv.apply {
                     //adapter = sampleAdapter
                     layoutManager = LinearLayoutManager(this@HomeActivity)
                 }
             }
             R.id.change_grid -> {
-                for (i in 0 until sampleAdapter.data.size) {
-                    sampleAdapter.data[i].viewType = 2
-                }
+                sampleAdapter.changeViewType = 2
                 main_rcv.apply {
                     //adapter = sampleAdapter
                     layoutManager = GridLayoutManager(this@HomeActivity, 3)

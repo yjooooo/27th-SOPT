@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleViewHolder>(){
     var data = mutableListOf<SampleData>()
-
+    var changeViewType = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
         var view =
         when (viewType){
@@ -29,12 +29,9 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
     }
 
     override fun getItemViewType(position: Int): Int {
-        data?.let{
-            return it[position].viewType
-        }?:kotlin.run{
-            return super.getItemViewType(position)
-        }
+        return changeViewType
     }
+
     override fun getItemCount(): Int = data.size
     /*
     //위의 코드랑 같은 것임. return만 해주는 간단한 코드라 저렇게 작성함.
