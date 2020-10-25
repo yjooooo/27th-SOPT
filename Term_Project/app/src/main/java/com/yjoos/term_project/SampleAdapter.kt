@@ -1,9 +1,7 @@
 package com.yjoos.term_project
 
-import android.content.ClipData
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
@@ -49,8 +47,6 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
         holder.onBind(data[position])
     }
 
-
-    
     //아이템 액션 인터페이스 정의
     interface ItemActionListener{
         fun onItemMoved(from: Int, to: Int)

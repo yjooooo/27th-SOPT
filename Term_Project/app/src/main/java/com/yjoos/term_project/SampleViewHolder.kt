@@ -2,13 +2,10 @@ package com.yjoos.term_project
 
 import android.content.Intent
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.profile_item_list.view.*
 
 class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener):RecyclerView.ViewHolder(itemView){
