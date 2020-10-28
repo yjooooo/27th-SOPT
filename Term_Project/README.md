@@ -1,6 +1,23 @@
 # 🚩2nd Week
 
-로딩 중이니 기다려주세요...(조만간 적을 예정)
+1. 과제
+2. RecyclerView
+3. LinearLayout↔GridLayout
+4. Drag & Drop
+5. Swipe to Dismiss
+
+
+
+### 📋과제
+
+1. 로그인 버튼 클릭 ➡ RecyclerView화면
+   각 아이템 클릭 ➡ 해당 아이템의 상세화면
+
+2. GridLayout 만들기
+
+3. RecyclerView Item 이동, 삭제 구현
+
+   
 
 
 
