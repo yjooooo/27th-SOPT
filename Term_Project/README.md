@@ -6,11 +6,15 @@
 4. LinearLayout 🔄 GridLayout
 5. RecyclerView Item 이동, 삭제 ▶ Drag & Drop, Swipe to Dismiss
 
-![login-recyclerview](C:\Users\thsdu\Desktop\SOPT\이미지\login-recyclerview.gif
+
 
 ### 🎥실행영상
 
-<img width="200" src="C:\Users\thsdu\Desktop\SOPT\이미지\login-recyclerview.gif">
+<div>
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/97593895-77359d00-1a45-11eb-8ac5-c7f98b9eadaf.gif">
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/97593918-7bfa5100-1a45-11eb-9a13-0065aa255485.gif">
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/97593930-7e5cab00-1a45-11eb-9129-1cfabae01d98.gif">
+</div>
 
 
 
@@ -285,17 +289,21 @@
 
 # 🚩1st Week
 
-1. 과제
+1. 실행영상
+2. 과제
+3. ConstraintLayout
+4. Intent를 사용한 액티비티 간 데이터 전달
+5. startActivityForResult()
+6. SharedPreferences()
 
-2. ConstraintLayout
 
-3. Intent를 사용한 액티비티 간 데이터 전달
 
-4. startActivityForResult()
 
-5. SharedPreferences()
+### 🎥실행영상
 
-   
+<img width="200" src="https://user-images.githubusercontent.com/68374234/97591920-7439ad00-1a43-11eb-87b4-476822235e88.gif">
+
+
 
 ### 📋과제
 
