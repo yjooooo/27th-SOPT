@@ -1,5 +1,7 @@
 # 🚩2nd Week
 
+![로그인-리사이클러뷰](C:\Users\thsdu\Desktop\SOPT\이미지\로그인-리사이클러뷰.gif)![로그인-리사이클러뷰](C:\Users\thsdu\Desktop\SOPT\이미지\로그인-리사이클러뷰.gif)![로그인-리사이클러뷰](C:\Users\thsdu\Desktop\SOPT\이미지\로그인-리사이클러뷰.gif)
+
 1. 과제
 2. RecyclerView  Item 클릭 이벤트
 3. LinearLayout 🔄 GridLayout
@@ -158,6 +160,8 @@
 - HomeActivity.kt
 
   - 어댑터에서 만들었던 액션 리스너의 함수를 재정의한다.
+
+  - 어댑터가 아이템 변경 사항을 인식할 수 있도록 notifyItemMoved(), notifyItemRemoved()를 호출해야 한다.
 
     ```kotlin
     //아이템 액션 리스너
