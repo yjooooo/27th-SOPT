@@ -5,11 +5,10 @@
 1. 과제
 2. RecyclerView  Item 클릭 이벤트
 3. LinearLayout 🔄 GridLayout
-4. RecyclerView Item 이동 ▶ Drag & Drop
-5. RecyclerView Item 삭제 ▶ Swipe to Dismiss
-6. Spinner
-7. Options Menu
-8. RecyclerView Item background
+4. RecyclerView Item 이동, 삭제 ▶ Drag & Drop, Swipe to Dismiss
+5. Spinner
+6. Options Menu
+7. RecyclerView Item background
 
 
 
@@ -33,8 +32,8 @@
   - 뷰홀더 파일의 onBind함수
     ▶ 뷰의 요소들에 실질적으로 데이터를 넣어주는 함수
     ▶ Adapter에서 해당 함수를 호출할 예정
-    ▶ 이 함수에서 itemView에 클릭리스너를 적용하기 
-    ▶ 어댑터에서 전달받은 아이템의 데이터를 layout에 Bind시켜줄 때 클릭리스너도 함께 적용한 것.
+    ▶ 이 함수에서 itemView에 클릭리스너를 적용
+    ▶ 어댑터에서 전달받은 아이템의 데이터를 layout에 Bind시켜줄 때 클릭리스너도 함께 적용한 것이다.
 
     ```kotlin
     fun onBind(data: SampleData){
@@ -111,7 +110,176 @@
 
 
 
-### 🍩RecyclerView Item 클릭 이벤트
+### 🍩RecyclerView Item 이동 ▶ Drag & Drop
+
+- ItemTouchHelper 
+
+  - RecyclerView.ItemDecoration의 서브 클래스
+  - RecyclerView 및 Callback 클래스와 함께 작동한다.
+  - 사용자가 액션을 수행할 때 이벤트를 수신한다.
+  - 여기서의 메소드를 재정의해서 사용할 것
+
+- ItemTouchHelper.Callback
+
+  - 추상클래스로 추상메소드 getMovementFlags(), onMove(), onSwiped()를 필수로 재정의 해야한다.
+  - 이것을 이용하거나 Wrapper클래스인 ItemTouchHelper.SimpleCallback 이용해도 된다.
+
+- SampleAdapter.kt
+
+  - ItemDragaListener ▶ 사용자가 Drag 액션을 시작할 때 itemTouchHelper에 이벤트를 전달한다.
+
+    ```kotlin
+    //아이템 드래그 인터페이스 정의
+    interface ItemDragListener{
+        fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
+    }
+    //드래그리스너 선언
+    private lateinit var itemDragListener: ItemDragListener
+    //드래그리스너 등록 메소드
+    fun setItemDragListener(itemDragListener: ItemDragListener){
+        this.itemDragListener = itemDragListener
+    }
+    ```
+
+  - ItemActionListener ▶ 아이템이 Drag&Drop됐거나 Swiped됐을 때 어댑터에 이벤트를 전달한다.
+
+    ```kotlin
+    //아이템 액션 인터페이스 정의
+    interface ItemActionListener{
+        fun onItemMoved(from: Int, to: Int)
+        fun onItemSwiped(position: Int)
+    }
+    //액션리스너 선언
+    private lateinit var itemActionListener: ItemActionListener
+    //액션리스너 등록 메소드
+    fun setItemActionListener(itemActionListener: ItemActionListener){
+        this.itemActionListener = itemActionListener
+    }
+    fun getItemActionListener(): ItemActionListener{
+        return itemActionListener
+    }
+    ```
+
+- HomeActivity.kt
+
+  - 어댑터에서 만들었던 액션 리스너의 함수를 재정의한다.
+
+    ```kotlin
+    //아이템 액션 리스너
+    sampleAdapter.setItemActionListener(object : SampleAdapter.ItemActionListener {
+        override fun onItemMoved(from: Int, to: Int) {
+            if (from == to) {
+                return
+            }
+    
+            //이동할 객체를 원래 위치에서 삭제하고 fromItem에 임시로 저장
+            val fromItem = sampleAdapter.data.removeAt(from)
+            //이동하고 싶은 position에 추가
+            sampleAdapter.data.add(to, fromItem)
+            //어댑터에 데이터 이동 알림
+            sampleAdapter.notifyItemMoved(from, to)
+            spinner.setSelection(2)
+        }
+    
+        override fun onItemSwiped(position: Int) {
+            sampleAdapter.data.removeAt(position)
+            //어댑터에 데이터 삭제 알림
+            sampleAdapter.notifyItemRemoved(position)
+            //Log.d("delete", "${sampleAdapter.data.size}개")
+            spinner.setSelection(2)
+        }
+    
+    })
+    ```
+
+- SampleViewHolder.kt
+
+  - 어댑터 생성자의 파라미터로 받은 ItemDragListener는 뷰홀더에서 사용된다.<br>
+    아이템을 길게 누르면 아이템 이동이 되도록 구현하고자 한다.<br>
+    ▶ 아이템뷰에 setOnLongClickListener를 달아준다.  그 안에서 listener.onStartDrag() 호출!
+
+    ```kotlin
+    init {
+        //itemView.root 에서 root(xml아이디)이름 같게 하기
+        //why? => profile_item_grid.xml과  profile_item_list.xml 두개의 레이아웃이 함께 띄워지는게 아니라 번갈아 띄워지는거라서
+        //        아이디 다르게 해서 setOnLongClickListener를 각각 적용하면 띄워지지 않은 레이아웃을 가리켜서 null값때문에 오류남!!
+        itemView.setOnLongClickListener { v->
+            listener.onStartDrag(this)
+            true
+        }
+    ```
+
+- ItemTouchHelperCallback.kt
+
+  - ItemTouchHelper.Callback을 상속받는 ItemTouchHelperCallback 클래스를 구현하고, 생성자의 파라미터로 ItemActionListener를 받는다.
+
+  - getMovementFlags() 재정의 ▶ Drag, Swipe 이벤트의 방향을 지정한다.
+
+  - 아이템이 Drag되면 ItemTouchHelper는 onMove()를 호출한다.<br>
+    ▶ 여기서 ItemActionListener로 어댑터에 fromPosition과 toPosition을 파라미터와 함게 콜백을 전달한다.
+
+  - 아이템이 Swipe되면 ItemTouchHelper는 범위를 벗어날 때까지 애니메이션을 적용 후, onSwiped()를 호출한다.<br>
+    ▶ 여기서 ItemActionListener로 어댑터에 제거할 아이템의 position을 파라미터와 함게 콜백을 전달한다.
+
+    ```
+    package com.yjoos.term_project
+    
+    import androidx.recyclerview.widget.ItemTouchHelper
+    import androidx.recyclerview.widget.RecyclerView
+    
+    class ItemTouchHelperCallback(val listener:SampleAdapter.ItemActionListener): ItemTouchHelper.Callback(){
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val dragFlags = ItemTouchHelper.DOWN or ItemTouchHelper.UP or ItemTouchHelper.START or ItemTouchHelper.END //위아래로 드래그
+            val swipeFlags = ItemTouchHelper.START //좌로 스와이프
+            return makeMovementFlags(dragFlags, swipeFlags)
+        }
+    
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            listener.onItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
+            return true
+    
+        }
+    
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            listener.onItemSwiped(viewHolder!!.adapterPosition)
+        }
+    
+    }
+    ```
+
+- HomeActivity.kt
+
+  - 액티비티에서는 어댑터에서 만들었던 ItemDragListener 인터페이스의 onStartDrag함수를 재정의한다.
+
+  - 뷰홀더에서 onStartDrag() 이벤트를 보내면 ItemTouchHelper.startDrag()메소드를 호출해서 파라미터로 전달된 뷰홀더의 Drag를 시작한다.
+
+  - onCreate()에서 ItemTouchHelperCallback을 파라미터로 하는 ItemTouchHelper를 생성하고 RecyclerView에 붙여준다.
+
+    ```kotlin
+    //아이템 드래그 리스너
+    sampleAdapter.setItemDragListener(object : SampleAdapter.ItemDragListener {
+        override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+            itemTouchHelper.startDrag(viewHolder)
+    
+        }
+    })
+    
+    itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(sampleAdapter.getItemActionListener()))
+    itemTouchHelper.attachToRecyclerView(main_rcv)
+    ```
+
+  
+
+  ### 🍩Spinner
+
+  
 
 
 

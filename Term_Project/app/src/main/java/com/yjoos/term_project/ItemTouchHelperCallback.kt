@@ -27,5 +27,4 @@ class ItemTouchHelperCallback(val listener:SampleAdapter.ItemActionListener): It
         listener.onItemSwiped(viewHolder!!.adapterPosition)
     }
 
-    override fun isLongPressDragEnabled(): Boolean = false
 }

@@ -61,7 +61,7 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
     }
     //드래그리스너 선언
     private lateinit var itemDragListener: ItemDragListener
-    //드래그ㄹ스너 등록 메소드
+    //드래그리스너 등록 메소드
     fun setItemDragListener(itemDragListener: ItemDragListener){
         this.itemDragListener = itemDragListener
     }

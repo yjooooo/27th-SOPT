@@ -15,9 +15,8 @@ class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener
     init {
         //itemView.root 에서 root(xml아이디)이름 같게 하기
         //why? => profile_item_grid.xml과  profile_item_list.xml 두개의 레이아웃이 함께 띄워지는게 아니라 번갈아 띄워지는거라서
-        //        아이디 다르게 해서 setOnTouchListener를 각각 적용하면 띄워지지 않은 레이아웃을 가리켜서 null값때문에 오류남!!
-
-        itemView.root.setOnLongClickListener { v->
+        //        아이디 다르게 해서 setOnLongClickListener를 각각 적용하면 띄워지지 않은 레이아웃을 가리켜서 null값때문에 오류남!!
+        itemView.setOnLongClickListener { v->
             listener.onStartDrag(this)
             true
         }
