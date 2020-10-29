@@ -1,3 +1,5 @@
+
+
 # 🚩2nd Week
 
 1. 과제
@@ -17,15 +19,103 @@
    각 아이템 클릭 👉 해당 아이템의 상세화면
 2. GridLayout 만들기
 3. RecyclerView Item 이동, 삭제 구현
-4. ➕ Spinner 적용
-5. ➕ Options Menu 적용
-6. ➕  RecyclerView Item background 설정
+4. ➕ Item 각각의 이미지 적용
+5. ➕ Spinner 적용
+6. ➕ Options Menu 적용
+7. ➕  RecyclerView Item background 설정
 
 
 
-### 🍫RecyclerView Item 클릭 이벤트
+### 🍩RecyclerView Item 클릭 이벤트
 
-🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚
+- RecyclerView Item 클릭 👉 해당 아이템의 상세화면(DetailActivity.kt)
+
+  - 뷰홀더 파일의 onBind함수
+    ▶ 뷰의 요소들에 실질적으로 데이터를 넣어주는 함수
+    ▶ Adapter에서 해당 함수를 호출할 예정
+    ▶ 이 함수에서 itemView에 클릭리스너를 적용하기 
+    ▶ 어댑터에서 전달받은 아이템의 데이터를 layout에 Bind시켜줄 때 클릭리스너도 함께 적용한 것.
+
+    ```kotlin
+    fun onBind(data: SampleData){
+        //뷰의 요소들에 실질적으로 데이터를 넣어주는 함수, Adapter에서 해당 함수를 호출할 예정.
+        title.text=data.title
+        date.text=data.date
+        imageNum.setImageResource(data.imageNum)
+        itemView.setOnClickListener{
+            var detailIntent= Intent(itemView.context, DetailActivity::class.java)
+    
+            //클릭한 아이템에 대한 정보를 intent에 담아서 DetailActivity에 보내기
+            detailIntent.putExtra("album", data.title)
+            detailIntent.putExtra("date", data.date)
+            detailIntent.putExtra("producer", data.producer)
+            detailIntent.putExtra("genre", data.genre)
+            detailIntent.putExtra("image", data.imageNum)
+            itemView.context.startActivity(detailIntent)
+        }
+    }
+    ```
+
+
+
+### 🍩LinearLayout 🔄 GridLayout
+
+- RecyclerView 자체 레이아웃만 LinearLayout과 GridLayout으로 왔다갔다할 때는<br> layoutManager에 LinearLayoutManager와 GridLayoutManager를 번갈아 설정해주면 OK.
+
+- RecyclerView 자체 레이아웃이 <br><LinearLayout일 때의 아이템 레이아웃>과 <GridLayout일 때의 아이템 레이아웃>도 다르게 해주고 싶다면 RecyclerView 어댑터의 onCreateViewHolder함수에서 viewType을 다르게 받아서 설정 가능!
+
+  - SampleAdapter.kt
+
+    ```kotlin
+    var changeViewType = 0
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
+        var view =
+        when (viewType){
+            1->{
+                LayoutInflater.from(context).inflate(R.layout.profile_item_grid,
+                    parent, false)
+            }
+            else ->{
+                LayoutInflater.from(context).inflate(R.layout.profile_item_list,
+                    parent, false)
+            }
+        }
+    
+        return SampleViewHolder(view,itemDragListener)
+    }
+    
+    override fun getItemViewType(position: Int): Int {
+        return changeViewType
+    }
+    ```
+
+  - HomeActivity.kt ▶ GridLayout설정
+
+    ```kotlin
+    sampleAdapter.changeViewType = 1
+    main_rcv.apply {
+        //adapter = sampleAdapter
+        layoutManager = GridLayoutManager(this@HomeActivity, 3)
+    }
+    ```
+
+  - HomeActivity.kt ▶ LinearLayout 설정
+
+    ```kotlin
+    sampleAdapter.changeViewType = 0
+    main_rcv.apply {
+        //adapter = sampleAdapter
+        layoutManager = LinearLayoutManager(this@HomeActivity)
+    }
+    ```
+
+
+
+### 🍩RecyclerView Item 클릭 이벤트
+
+
+
+
 
 # 🚩1st Week
 

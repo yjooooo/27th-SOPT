@@ -12,10 +12,6 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
         var view =
         when (viewType){
             1->{
-                LayoutInflater.from(context).inflate(R.layout.profile_item_list,
-                    parent, false)
-            }
-            2->{
                 LayoutInflater.from(context).inflate(R.layout.profile_item_grid,
                     parent, false)
             }

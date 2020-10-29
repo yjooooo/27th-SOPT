@@ -161,14 +161,14 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             }
             R.id.change_linear -> {
-                sampleAdapter.changeViewType = 1
+                sampleAdapter.changeViewType = 0
                 main_rcv.apply {
                     //adapter = sampleAdapter
                     layoutManager = LinearLayoutManager(this@HomeActivity)
                 }
             }
             R.id.change_grid -> {
-                sampleAdapter.changeViewType = 2
+                sampleAdapter.changeViewType = 1
                 main_rcv.apply {
                     //adapter = sampleAdapter
                     layoutManager = GridLayoutManager(this@HomeActivity, 3)
