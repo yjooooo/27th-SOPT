@@ -1,27 +1,31 @@
 # 🚩2nd Week
 
 1. 과제
-2. RecyclerView
-3. LinearLayout↔GridLayout
-4. Drag & Drop
-5. Swipe to Dismiss
+2. RecyclerView  Item 클릭 이벤트
+3. LinearLayout 🔄 GridLayout
+4. RecyclerView Item 이동 ▶ Drag & Drop
+5. RecyclerView Item 삭제 ▶ Swipe to Dismiss
+6. Spinner
+7. Options Menu
+8. RecyclerView Item background
 
 
 
 ### 📋과제
 
-1. 로그인 버튼 클릭 ➡ RecyclerView화면
-   각 아이템 클릭 ➡ 해당 아이템의 상세화면
-
+1. 로그인 버튼 클릭 👉 RecyclerView화면
+   각 아이템 클릭 👉 해당 아이템의 상세화면
 2. GridLayout 만들기
-
 3. RecyclerView Item 이동, 삭제 구현
+4. ➕ Spinner 적용
+5. ➕ Options Menu 적용
+6. ➕  RecyclerView Item background 설정
 
-   
 
 
+### 🍫RecyclerView Item 클릭 이벤트
 
-
+🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚🔚
 
 # 🚩1st Week
 
