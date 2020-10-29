@@ -1,9 +1,16 @@
 # 🚩2nd Week
 
-1. 과제
-2. RecyclerView  Item 클릭 이벤트
-3. LinearLayout 🔄 GridLayout
-4. RecyclerView Item 이동, 삭제 ▶ Drag & Drop, Swipe to Dismiss
+1. 실행 영상
+2. 과제
+3. RecyclerView  Item 클릭 이벤트
+4. LinearLayout 🔄 GridLayout
+5. RecyclerView Item 이동, 삭제 ▶ Drag & Drop, Swipe to Dismiss
+
+![login-recyclerview](C:\Users\thsdu\Desktop\SOPT\이미지\login-recyclerview.gif
+
+### 🎥실행영상
+
+<img width="200" src="C:\Users\thsdu\Desktop\SOPT\이미지\login-recyclerview.gif">
 
 
 
