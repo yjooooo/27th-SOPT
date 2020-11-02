@@ -35,11 +35,7 @@ class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener
             var detailIntent= Intent(itemView.context, DetailActivity::class.java)
 
             //클릭한 아이템에 대한 정보를 intent에 담아서 DetailActivity에 보내기
-            detailIntent.putExtra("album", data.title)
-            detailIntent.putExtra("date", data.date)
-            detailIntent.putExtra("producer", data.producer)
-            detailIntent.putExtra("genre", data.genre)
-            detailIntent.putExtra("image", data.imageNum)
+            detailIntent.putExtra("albumData", data)
             itemView.context.startActivity(detailIntent)
         }
     }

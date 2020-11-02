@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ChildInfoFragment"
+    android:background="#101010">
+
+    <TextView
+        android:id="@+id/txt_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/txt_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생년월일"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_age"
+        app:layout_constraintStart_toStartOf="@+id/txt_age"/>
+    <TextView
+        android:id="@+id/txt_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주소"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_birth"
+        app:layout_constraintStart_toStartOf="@+id/txt_age"/>
+    <TextView
+        android:id="@+id/txt_1st_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최애"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_address"
+        app:layout_constraintStart_toStartOf="@+id/txt_age"/>
+    <TextView
+        android:id="@+id/txt_2nd_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="차애"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_1st_like"
+        app:layout_constraintStart_toStartOf="@+id/txt_age"/>
+    <TextView
+        android:id="@+id/txt_sns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SNS"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_2nd_like"
+        app:layout_constraintStart_toStartOf="@+id/txt_age"/>
+
+    <TextView
+        android:id="@+id/answer_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/txt_age"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/answer_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1998.06.13"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        app:layout_constraintTop_toTopOf="@id/txt_birth"
+        app:layout_constraintEnd_toEndOf="@id/answer_age" />
+    <TextView
+        android:id="@+id/answer_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위례신도시"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        app:layout_constraintTop_toTopOf="@id/txt_address"
+        app:layout_constraintEnd_toEndOf="@id/answer_age" />
+    <TextView
+        android:id="@+id/answer_1st_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G-Dragon"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        app:layout_constraintTop_toTopOf="@id/txt_1st_like"
+        app:layout_constraintEnd_toEndOf="@id/answer_age" />
+    <TextView
+        android:id="@+id/answer_2nd_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOP"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        app:layout_constraintTop_toTopOf="@id/txt_2nd_like"
+        app:layout_constraintEnd_toEndOf="@id/answer_age" />
+    <TextView
+        android:id="@+id/answer_sns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="y.joo_s"
+        android:textSize="20sp"
+        android:textColor="#FFDD00"
+        app:layout_constraintTop_toTopOf="@id/txt_sns"
+        app:layout_constraintEnd_toEndOf="@id/answer_age" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

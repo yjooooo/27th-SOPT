@@ -32,11 +32,14 @@ class DetailActivity : AppCompatActivity() {
         setContentView(dbinding.root)
 
         dbinding.detailData = this
-        title = intent.getStringExtra("album")
-        date = intent.getStringExtra("date")
-        producer = intent.getStringExtra("producer")
-        genre = intent.getStringExtra("genre")
-        imageNum = intent.getIntExtra("image", R.drawable.loading)
+
+        var albumData = intent.getParcelableExtra<SampleData>("albumData")
+
+        title = albumData.title
+        date = albumData.date
+        producer = albumData.producer
+        genre = albumData.genre
+        imageNum = albumData.imageNum
     }
 
 }

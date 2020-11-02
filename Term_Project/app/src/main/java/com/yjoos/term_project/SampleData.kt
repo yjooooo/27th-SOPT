@@ -1,5 +1,9 @@
 package com.yjoos.term_project
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class SampleData(
     val seqNum: Int, // 정렬 순서(가장 최신:0, 가장 옛날:size-1)
     val title: String, //타이틀 정보를 담은 title 변수
@@ -7,4 +11,4 @@ data class SampleData(
     val producer:String,
     val genre:String,
     val imageNum: Int //R.drawable.이미지명(이게 int값임)
-)
+): Parcelable
