@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
-    private lateinit var profileViewPagerAdapter: ProfileViewPagerAdapter
+    private lateinit var profileViewPagerAdapter: SampleViewPagerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,7 +20,7 @@ class ProfileFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        profileViewPagerAdapter = ProfileViewPagerAdapter(childFragmentManager)
+        profileViewPagerAdapter = SampleViewPagerAdapter(childFragmentManager)
         profileViewPagerAdapter.fragments = listOf(
             ChildInfoFragment(),
             ChildOtherFragment()
