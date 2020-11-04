@@ -4,10 +4,19 @@
 2. 과제
 3. Fragment + ViewPager
 4. BottomNavigation
+5. TabLayout
+6. ➕로그인 후, 뒤로가기 2번 누르면 앱 종료되게 구현
 
 
 
 ### 🎥실행영상
+
+<div>
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/98128515-5e246480-1efb-11eb-96a4-162462fe9ac2.gif">
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/98128499-5b297400-1efb-11eb-848d-1312be431b6d.gif">
+</div>
+
+
 
 
 
@@ -40,12 +49,19 @@
     - ViewPagerAdapter는 2가지 메소드 반드시 오버라이드 해야한다!
       - getItem메소드, getCount메소드
 
+- ViewPager 사용방법
+
+  1. ViewPager사용할 액티비티 레이아웃에 ViewPager추가하기
+  2. ViewPager에서 페이지로 표시될 레이아웃 리소스 xml 작성하기 <br>(이번 과제는 ViewPager에 레이아웃 리소스  xml 대신 Fragment를 넣을 것!)
+  3. PagerAdapter 상속 및 구현하기
+  4. ViewPager에 PageAdapter 저장하기
+
 - 전체화면(HomeActivity)
 
   - 전체화면에서 사용할 ViewPager에 적용할 PageAdapter (SampleViewPagerAdapter.kt)
 
-    - getItem 메소드에서 ViewPager의 각 poisition에서 보여줄 프래그먼트를 ViewPager에서 사용할 3개의 Fragment를 설정한다.
-    - getCount 메소드에서 사용가능한 뷰의 개수를 return해준다.
+    - getItem 메소드 : ViewPager의 각 poisition에서 보여줄 프래그먼트를 ViewPager에서 사용할 3개의 Fragment를 설정한다.
+    - getCount 메소드 : 사용가능한 뷰의 개수를 return해준다.
 
     ```kotlin
     class SampleViewPagerAdapter(fm: FragmentManager):
@@ -61,16 +77,232 @@
         override fun getCount(): Int = 3
     }
     ```
+    
+  - ViewPager에 SampleViewPagerAdapter 저장하기
+
+    ```kotlin
+    class HomeActivity : AppCompatActivity() {
+        private lateinit var viewPagerAdapter: SampleViewPagerAdapter //Adapter 선언
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_home)
+            
+            viewPagerAdapter = SampleViewPagerAdapter(supportFragmentManager)
+            sample_viewpager.adapter = viewPagerAdapter
+            //sample_viewpager는 xml에서 뷰페이저 아이디임.
+            ...
+        }
+        ...
+    }
+    ```
+
+- 프로필화면에서 구현하는 것도 같은 방법!!
 
 
 
 ### 🍒BottomNavigation
 
+- 전체화면에서 하단 탭(BottomNavigation 사용)으로도 페이지 이동 가능하게 할 것!
+
+- BottomNavigation
+
+  - 앱에서 하단 탭을 만들 때 사용한다.
+  - 위에서 구현한 ViewPager와 연동하여 서브화면들을 전환할 것이다.
+
+- BottomNavigation 사용방법
+
+  - menu이름으로 res위치에 directory를 생성한다.
+
+  - menu폴더 안에 xml을 추가한다. (bottom_menu.xml)
+
+    - 하단 탭으로 보여줄 아이콘 개수 만큼 item태그를 생성한다.
+
+    - 액티비티에서 각 item의 id값으로 접근할 것이므로 각 item의 id값을 설정한다.
+
+    - icon 속성은 탭의 아이콘 이미지로 만들어둔 Vector Asset 파일을 넣어준다.
+
+    - title 속성은 탭의 아이템 이름으로 화면상에서 보여지는 각 탭의 이름이다.
+
+      ```kotlin
+      <menu xmlns:android="http://schemas.android.com/apk/res/android">
+          <item
+              android:id="@+id/menu_profile"
+              android:icon="@drawable/ic_profile"
+              android:checked="false"
+              android:title="Profile"/>
+          <item
+              android:id="@+id/menu_album"
+              android:icon="@drawable/ic_album_list"
+              android:checked="false"
+              android:title="Album"/>
+          <item
+              android:id="@+id/menu_settings"
+              android:icon="@drawable/ic_settings"
+              android:checked="false"
+              android:title="Setting"/>
+      </menu>
+      ```
+
+  - 이때 하단 탭의 아이콘 색상(선택 되었을 때, 선택되지 않았을 때)을 변경하고 싶다면
+
+    - color이름으로 res위치에 directory를 생성한다. (botom_navi.color.xml)
+
+    - color폴더 안에 selector태그를 단 xml을 추가하고
+
+    - item태그 안에서 state_checked 속성이 true/false값을 가질 때의 색상을 color 속성에 설정해준다.
+
+      ```kotlin
+      <selector xmlns:android="http://schemas.android.com/apk/res/android">
+          <item
+              android:color="#fff000"
+              android:state_checked="true"/>
+          <item
+              android:color="#9e9e9e"
+              android:state_checked="false"/>
+      </selector>
+      ```
+
+  - 하단 탭을 사용할 액티비티 xml에 BottomNavigationView를 추가한다.
+
+    - 이때, itemIconTint 속성과 itemTextColor 속성에 만들어둔 color폴더의 bottom_navi_color.xml파일을 넣어준다.
+
+    - menu 속성에는 menu폴더의 bottom_menu.xml파일을 넣어준다.
+
+    - itemIconTint : 탭의 아이콘 색상, itemTextColor : 탭의 아이템 이름 색상, itemRippleColor : 탭 선택시 퍼져나가는 물결효과의 색상
+
+      ```kotlin
+      <com.google.android.material.bottomnavigation.BottomNavigationView
+      	...
+      	app:itemRippleColor="#96c3ba"
+      	app:itemIconTint="@color/bottom_navi_color"
+          app:itemTextColor="@color/bottom_navi_color"
+          app:menu="@menu/bottom_menu"
+      	...>
+      </com.google.android.material.bottomnavigation.BottomNavigationView>
+      ```
+
+  - 하단 탭을 사용할 액티비티.kt 파일에서 BottomNavigation을 세팅한다.
+
+    - 탭의 각 아이템을 선택했을 때 👉 ViewPager에서 각 아이템에 해당하는 페이지로 변경
+
+      - 각 탭을 클릭했을 때의 이벤트 처리 Listener를 설정한다.
+
+      - bottom_menu.xml의 아이템 id값을 통해 ViewPager의 currentItem을 조작한다.
+
+        ```kotlin
+        class HomeActivity : AppCompatActivity() {
+            private lateinit var viewPagerAdapter: SampleViewPagerAdapter
+            override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                setContentView(R.layout.activity_home)
+        		...
+                //바텀 네비게이션 세팅
+                sample_bottom_navi.setOnNavigationItemSelectedListener {
+                    var index by Delegates.notNull<Int>()
+                    when(it.itemId){
+                        R.id.menu_profile -> index = 0
+                        R.id.menu_album -> index = 1
+                        R.id.menu_settings -> index = 2
+                    }
+                    sample_viewpager.currentItem = index
+                    true
+                }
+                ...
+            }
+            ...
+        }
+        ```
+
+  - 탭의 각 아이템을 선택했을 때 👉 ViewPager에서 각 아이템에 해당하는 페이지로 변경된 것 처럼<br>ViewPager에서 슬라이드해서 화면변경됨 👉 그 페이지에 해당하는 탭의 아이템이 선택되도록 해야한다.
+
+    - ViewPager에 페이지 변경에 관한 Listener가 필요하다.
+
+      ```kotlin
+      class HomeActivity : AppCompatActivity() {
+          private lateinit var viewPagerAdapter: SampleViewPagerAdapter
+          override fun onCreate(savedInstanceState: Bundle?) {
+              super.onCreate(savedInstanceState)
+              setContentView(R.layout.activity_home)
+              ...
+              //뷰페이저 슬라이드 -> 바텀네비 변경
+              sample_viewpager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+                  override fun onPageScrollStateChanged(state: Int) {}
+                  override fun onPageScrolled(
+                      position: Int,
+                      positionOffset: Float,
+                      positionOffsetPixels: Int
+                  ) {}
+                  //뷰페이저의 페이지 중 하나가 선택된 경우 그에 대응되는 하단 탭의 상태 변경
+                  override fun onPageSelected(position: Int) {
+                      sample_bottom_navi.menu.getItem(position).isChecked = true
+                  }
+              })
+              ...
+          }
+          ...
+      }
+      ```
 
 
 
+### 🍒TabLayout
 
-### 🍒ViewPager
+- 프로필화면(ProfileFragment)에서 중앙 탭(TabLayout 사용)으로도 페이지 이동 가능하게 할 것!
+
+- TabLayout
+
+  - 상단 탭을 만들 때 주로 사용한다.
+  - BottomNavigationView에 비해 위치 이동이 자유롭다.
+
+- TabLayout 사용방법
+
+  - TabLayout사용할 액티비티 레이아웃에 TabLayout 추가하기
+
+  - 액티비티에서 탭 레이아웃에 ViewPager를 연동하기
+
+  - getTabAt(index)?.text = "" 사용하여 각 인덱스와 일치하는 탭 아이템 title 작성하기
+
+    - 이것은 반드시!! 연동 후에 작성해줘야 한다고 한다.
+
+    ```kotlin
+    sample_tab.setupWithViewPager(profile_viewpager)
+    sample_tab.apply{
+        getTabAt(0)?.text = "INFO"
+        getTabAt(1)?.text = "OTHER"
+    }
+    ```
+
+  - 
+
+    - 이것은 반드시!! 연동 후에 작성해줘야 한다고 한다.
+
+
+
+### 🍒로그인 후, 뒤로가기 두번  👉  앱 종료
+
+- 뒤로가기 버튼을 눌렀을 때 호출되는 onBackPressed()메소드를 오버라이드 해준다.
+
+- System.currentTimeMillis()의 return형은 long값이며, 1/1000초의 값을 return한다.
+
+- 처음 back버튼을 누르면 Toast로 한번 더 누르면 종료된다는 메시지 보여주고, <br>2초 안에 한번 더 back버튼을 누르면 종료되도록 한다.
+
+  ```kotlin
+  var time3: Long = 0
+  override fun onBackPressed() {
+      val time1 = System.currentTimeMillis()
+      val time2 = time1 - time3
+      if (time2 in 0..2000) {
+          ActivityCompat.finishAffinity(this) //해당 앱의 루트 액티비티를 종료시킨다.
+  
+          System.runFinalization() //현재 작업중인 쓰레드가 다 종료되면, 종료 시키라는 명령어이다.
+  
+          System.exit(0) // 현재 액티비티를 종료시킨다.
+      } else {
+          time3 = time1
+          Toast.makeText(applicationContext, "한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+      }
+  }
+  ```
 
 
 
