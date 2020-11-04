@@ -1,3 +1,81 @@
+# 🚩3rd Week
+
+1. 실행 영상
+2. 과제
+3. Fragment + ViewPager
+4. BottomNavigation
+
+
+
+### 🎥실행영상
+
+
+
+### 📋과제
+
+1. 하단탭 + 뷰페이저로 전체적인 화면 구성하기
+
+   - 로그인 버튼 클릭 👉 <프로필화면 / 리사이클러뷰 화면 / 비어있는 화면> 3개의 프래그먼트 화면
+
+   - 프로필 화면 내 👉 <Info화면 / Other화면> 2개의 프래그먼트 화면 포함
+
+
+
+### 🍒Fragment + ViewPager
+
+- 하나의 화면에서 여러개의 전체화면을 보이게 하기 위해 Fragment + ViewPager 조합을 사용한다!
+
+- 전체화면에 3개의 Fragment 필요! 👉 하단 탭(BottomNavigation 사용)으로도 페이지 이동 가능하게 할 것!
+
+  1. 프로필화면 (ProfileFragment)에 2개의 Fragment 필요! 👉 중앙 탭(TabLayout 사용)으로도 페이지 이동 가능하게 할 것!
+     1. Info화면(ChildInfoFragment)
+     2. Other화면(ChildOtherFragment)
+  2. 리사이클러뷰 화면 (MusicAlbumFragment)
+  3. 빈 화면 (ThirdFragment)
+
+- 전체화면을 띄우는 액티비티 & 프로필화면 에 각각 ViewPager필요하다.
+
+  - Android에서는 데이터 리스트를 아이템 단위의 뷰 또는 뷰 집합으로 표시할 때, Adapter를 사용한다.
+  - ViewPager의 경우, PagerAdapter를 사용하여 각 페이지를 위한 뷰를 생성한다.<br> 2개의 ViewPager에 적용할 2개의 PagerAdapter필요하다!
+    - ViewPagerAdapter는 2가지 메소드 반드시 오버라이드 해야한다!
+      - getItem메소드, getCount메소드
+
+- 전체화면(HomeActivity)
+
+  - 전체화면에서 사용할 ViewPager에 적용할 PageAdapter (SampleViewPagerAdapter.kt)
+
+    - getItem 메소드에서 ViewPager의 각 poisition에서 보여줄 프래그먼트를 ViewPager에서 사용할 3개의 Fragment를 설정한다.
+    - getCount 메소드에서 사용가능한 뷰의 개수를 return해준다.
+
+    ```kotlin
+    class SampleViewPagerAdapter(fm: FragmentManager):
+        FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+    
+        override fun getItem(position: Int): Fragment = when(position){
+            0 -> ProfileFragment()
+            1 -> MusicAlbumFragment()
+            2 -> ThirdFragment()
+            else -> throw IllegalStateException("Unexpected position $position")
+        }
+        
+        override fun getCount(): Int = 3
+    }
+    ```
+
+
+
+### 🍒BottomNavigation
+
+
+
+
+
+### 🍒ViewPager
+
+
+
+
+
 # 🚩2nd Week
 
 1. 실행 영상

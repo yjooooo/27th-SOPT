@@ -18,12 +18,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         viewPagerAdapter = SampleViewPagerAdapter(supportFragmentManager)
-        viewPagerAdapter.fragments = listOf(
-            ProfileFragment(),
-            MusicAlbumFragment(),
-            ThirdFragment()
-        )
-        //sample_viewpager = xml에서 뷰페이저 아이디
+
+        //여기서 sample_viewpager는 xml에서 뷰페이저 아이디임.
         sample_viewpager.adapter = viewPagerAdapter
 
         sample_viewpager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
