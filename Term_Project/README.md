@@ -2,10 +2,11 @@
 
 1. 실행 영상
 2. 과제
-3. Fragment + ViewPager
-4. BottomNavigation
-5. TabLayout
-6. ➕로그인 후, 뒤로가기 2번 누르면 앱 종료되게 구현
+3. Fragment에서 onCreateView와 onViewCreated의 차이점
+4. Fragment + ViewPager
+5. BottomNavigation
+6. TabLayout
+7. ➕로그인 후, 뒤로가기 2번 누르면 앱 종료되게 구현
 
 
 
@@ -27,6 +28,19 @@
    - 로그인 버튼 클릭 👉 <프로필화면 / 리사이클러뷰 화면 / 비어있는 화면> 3개의 프래그먼트 화면
 
    - 프로필 화면 내 👉 <Info화면 / Other화면> 2개의 프래그먼트 화면 포함
+
+
+
+### 🍒Fragment에서 onCreateView와 onViewCreated
+
+- Fragment는 기존에 1개의 Activity 위에 여러개의 view를 지정하여 액티비티를 꾸렸다면<br>Activity위에 Fragment를 올리고 Fragment위에 뷰를 올릴 수 있게 해준다.
+- onCrate : Fragment가 생성될 때 호출되는 부분
+- onCreateView : onCreate 후에 화면을 구성할 때 호출되는 부분 
+  - Fragment에서는 onCreate가 아닌 onCreateView부분에서 Activity의 onCreate에서 사용한 코드를 적으면 된다고 생각하면 됨.
+- onViewCreated : onCreateview에서 뷰를 생성하고 뷰가 만들어지면 onViewCreated가 콜백된다고 한다.
+  -  onViewCreated는 onCreateView에서 return해준 view를 갖고 있다.
+- 레이아웃을 inflate(setContentView())하고, root뷰에 대한 작업은  👉  onCreateView
+-  Fragment의 모든 초기화 코드는 👉  onViewCreated
 
 
 
