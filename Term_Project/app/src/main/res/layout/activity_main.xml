@@ -43,6 +43,7 @@
         android:hint="ID"
         android:textColorHint="#77fff000"
         android:textColor="#fff000"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -68,6 +69,7 @@
         android:hint="PW"
         android:textColor="#fff000"
         android:textColorHint="#77fff000"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="@+id/id_edt"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -76,7 +78,7 @@
         android:id="@+id/login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:text="로그인"
         android:background="@drawable/round_button"
         app:layout_constraintEnd_toEndOf="@+id/pw_edt"

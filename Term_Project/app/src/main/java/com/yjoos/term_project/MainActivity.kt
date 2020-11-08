@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.widget.Toast
 //import androidx.lifecycle.MutableLiveData
@@ -59,6 +61,24 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
+
+        id_edt.textChangedListener {
+            if(it.isNullOrEmpty()){
+                id_edt.setBackgroundResource(0)
+            }
+            else{
+                id_edt.setBackgroundResource(R.drawable.login_edit)
+            }
+        }
+        pw_edt.textChangedListener {
+            if(it.isNullOrEmpty()){
+                pw_edt.setBackgroundResource(0)
+            }
+            else{
+                pw_edt.setBackgroundResource(R.drawable.login_edit)
+            }
+        }
+
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
