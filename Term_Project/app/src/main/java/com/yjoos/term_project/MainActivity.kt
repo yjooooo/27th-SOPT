@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
+        
         id_edt.textChangedListener {
             if(it.isNullOrEmpty()){
                 id_edt.setBackgroundResource(0)
