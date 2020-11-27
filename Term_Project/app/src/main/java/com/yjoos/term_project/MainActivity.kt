@@ -1,17 +1,21 @@
 package com.yjoos.term_project
 
+//import androidx.lifecycle.MutableLiveData
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
-//import androidx.lifecycle.MutableLiveData
+import androidx.appcompat.app.AppCompatActivity
 import com.yjoos.term_project.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -49,19 +53,54 @@ class MainActivity : AppCompatActivity() {
         }
 
         login_btn.setOnClickListener {
-            if(id_edt.text.toString()!=""
-                    && pw_edt.text.toString()!=""){
-                idpwEditor.putString("id",id_edt.text.toString())
-                idpwEditor.putString("pw",pw_edt.text.toString())
-                idpwEditor.commit()
-                Toast.makeText(this, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                startActivity(homeIntent)
-            }
-            else{
-                Toast.makeText(this, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
+            val id = id_edt.text.toString()
+            val pw = pw_edt.text.toString()
+            val call: Call<SampleResponseData> = SampleServiceImpl.service.postLogin(
+                SampleRequestData(email = id, password = pw)
+            )
+            call.enqueue(object: Callback<SampleResponseData> {
+                override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<SampleResponseData>,
+                    response: Response<SampleResponseData>
+                ) {
+                    Log.d("tag", response.body()!!.status.toString())
+                    response.takeIf{ it.isSuccessful }
+                        ?.body()
+                        ?.let{ data ->
+                            Log.d("tag", response.body()!!.status.toString())
+                            idpwEditor.putString("id",data.data.email)
+                            idpwEditor.putString("pw",data.data.password)
+                            idpwEditor.commit()
+                            Toast.makeText(this@MainActivity, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                            startActivity(homeIntent)
+                        } ?: showError(response.errorBody())
+                }
+
+                private fun showError(error: ResponseBody?) {
+                    val e = error ?: return
+                    val ob = JSONObject(e.string())
+                    Toast.makeText(this@MainActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
+                }
+            })
+
+//            //서버통신 전
+//            if(id_edt.text.toString()!=""
+//                    && pw_edt.text.toString()!=""){
+//                idpwEditor.putString("id",id_edt.text.toString())
+//                idpwEditor.putString("pw",pw_edt.text.toString())
+//                idpwEditor.commit()
+//                Toast.makeText(this, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+//                startActivity(homeIntent)
+//            }
+//            else{
+//                Toast.makeText(this, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
+//            }
         }
-        
+
         id_edt.textChangedListener {
             if(it.isNullOrEmpty()){
                 id_edt.setBackgroundResource(0)

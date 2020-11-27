@@ -2,12 +2,16 @@ package com.yjoos.term_project
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,16 +19,50 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         val signIntent = Intent(this, MainActivity::class.java)
-        s_joinBtn.setOnClickListener {
-            if (s_nameEdt.text.toString() != ""
-                && s_idEdt.text.toString() != ""
-                && s_pwEdt.text.toString() != ""){
-                Toast.makeText(this, "반갑습니다,"+s_nameEdt.text.toString()+"님! 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
 
-                signIntent.putExtra("id", s_idEdt.text.toString())
-                signIntent.putExtra("pw", s_pwEdt.text.toString())
-                setResult(Activity.RESULT_OK,signIntent)
-                finish()
+
+
+        s_joinBtn.setOnClickListener {
+            val id = s_idEdt.text.toString()
+            val pw = s_pwEdt.text.toString()
+            val userName = s_nameEdt.text.toString()
+            if (userName != ""
+                && id != ""
+                && pw != ""){
+
+
+                val call: Call<SampleResponseData> = SampleServiceImpl.service.postSignup(
+                    SampleSignupRequestData(email = id, password = pw, userName = userName)
+                )
+                call.enqueue(object: Callback<SampleResponseData>{
+                    override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
+                        //통신 실패 로직
+                    }
+
+                    override fun onResponse(
+                        call: Call<SampleResponseData>,
+                        response: Response<SampleResponseData>
+                    ) {
+                        response.takeIf{ it.isSuccessful }
+                            ?.body()
+                            ?.let{ data ->
+                                Toast.makeText(this@SignUpActivity, "반갑습니다,"+userName+"님! 회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                signIntent.putExtra("id", id)
+                                signIntent.putExtra("pw", pw)
+                                setResult(Activity.RESULT_OK,signIntent)
+                                finish()
+                            } ?: showError(response.errorBody())
+
+                    }
+
+                    private fun showError(error: ResponseBody?) {
+                        val e = error ?: return
+                        val ob = JSONObject(e.string())
+                        Toast.makeText(this@SignUpActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
+                    }
+                })
+
+
                 //startActivityForResult(signIntent, 1)
             }
             else{
