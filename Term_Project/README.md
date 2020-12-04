@@ -29,6 +29,15 @@
 
 
 
+### 📷POSTMAN 테스트
+
+<div>
+    <img width="500" src="https://user-images.githubusercontent.com/68374234/101181533-5689e400-3690-11eb-8e7e-6ea8b6cdfc99.png">
+    <img width="500" src="https://user-images.githubusercontent.com/68374234/101181526-54278a00-3690-11eb-96ed-adb68b7616bf.png">
+</div>
+
+
+
 ### 📋필수과제 - 로그인 / 회원가입 서버 통신 구현하기
 
 - Retrofit 라이브러리와 Gson 라이브러리를 사용하기위해 gradle 파일에 다음을 추가해준다.
