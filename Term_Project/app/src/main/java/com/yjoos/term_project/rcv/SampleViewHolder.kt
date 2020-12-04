@@ -1,12 +1,13 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.rcv
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.profile_item_list.view.*
+import com.bumptech.glide.Glide
+import com.yjoos.term_project.DetailActivity
+import com.yjoos.term_project.R
 
 class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener):RecyclerView.ViewHolder(itemView){
     //드래그 핸들을 통한 아이템 이동을 구현하고자 함.
@@ -24,18 +25,18 @@ class SampleViewHolder (itemView: View, listener: SampleAdapter.ItemDragListener
     }
     private val title: TextView = itemView.findViewById(R.id.item_title)
     private val date: TextView = itemView.findViewById(R.id.item_date)
-    private val imageNum: ImageView = itemView.findViewById(R.id.profile_Image)
+    private val imageSrc: ImageView = itemView.findViewById(R.id.profile_Image)
 
     fun onBind(data: SampleData){
         //뷰의 요소들에 실질적으로 데이터를 넣어주는 함수, Adapter에서 해당 함수를 호출할 예정.
-        title.text=data.title
-        date.text=data.date
-        imageNum.setImageResource(data.imageNum)
+        title.text=data.firstName
+        date.text=data.email
+        Glide.with(itemView).load(data.imageSrc).placeholder(R.drawable.loading).error(R.drawable.loading).into(imageSrc)
         itemView.setOnClickListener{
             var detailIntent= Intent(itemView.context, DetailActivity::class.java)
 
             //클릭한 아이템에 대한 정보를 intent에 담아서 DetailActivity에 보내기
-            detailIntent.putExtra("albumData", data)
+            detailIntent.putExtra("listData", data)
             itemView.context.startActivity(detailIntent)
         }
     }

@@ -1,9 +1,10 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.rcv
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.yjoos.term_project.R
 
 class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleViewHolder>(){
     var data = mutableListOf<SampleData>()
@@ -12,11 +13,13 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
         var view =
         when (viewType){
             1->{
-                LayoutInflater.from(context).inflate(R.layout.profile_item_grid,
+                LayoutInflater.from(context).inflate(
+                    R.layout.profile_item_grid,
                     parent, false)
             }
             else ->{
-                LayoutInflater.from(context).inflate(R.layout.profile_item_list,
+                LayoutInflater.from(context).inflate(
+                    R.layout.profile_item_list,
                     parent, false)
             }
         }
@@ -51,7 +54,7 @@ class SampleAdapter(private val context: Context): RecyclerView.Adapter<SampleVi
     fun setItemActionListener(itemActionListener: ItemActionListener){
         this.itemActionListener = itemActionListener
     }
-    fun getItemActionListener(): ItemActionListener{
+    fun getItemActionListener(): ItemActionListener {
         return itemActionListener
     }
 

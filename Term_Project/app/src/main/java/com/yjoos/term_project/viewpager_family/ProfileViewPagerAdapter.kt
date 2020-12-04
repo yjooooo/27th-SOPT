@@ -1,4 +1,4 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.viewpager_family
 
 
 import androidx.fragment.app.Fragment

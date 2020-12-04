@@ -1,4 +1,4 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.rcv
 
 import android.graphics.Rect
 import android.view.View

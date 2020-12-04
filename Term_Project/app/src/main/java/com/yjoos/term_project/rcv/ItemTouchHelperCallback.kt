@@ -1,9 +1,10 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.rcv
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.yjoos.term_project.rcv.SampleAdapter
 
-class ItemTouchHelperCallback(val listener:SampleAdapter.ItemActionListener): ItemTouchHelper.Callback(){
+class ItemTouchHelperCallback(val listener: SampleAdapter.ItemActionListener): ItemTouchHelper.Callback(){
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder

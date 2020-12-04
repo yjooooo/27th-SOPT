@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
+import com.yjoos.term_project.viewpager_family.SampleViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlin.properties.Delegates
 
@@ -42,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.menu_profile -> index = 0
                 R.id.menu_album -> index = 1
-                R.id.menu_settings -> index = 2
+                R.id.menu_search -> index = 2
             }
             sample_viewpager.currentItem = index
             true

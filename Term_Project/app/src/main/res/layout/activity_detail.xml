@@ -1,72 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="detailData"
-            type="com.yjoos.term_project.DetailActivity"/>
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".DetailActivity"
-        android:background="#000000">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity"
+    android:background="#000000">
 
-        <ImageView
-            android:id="@+id/album_image"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:drawableBind="@{detailData.imageNum}"/>
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/loading"/>
 
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@{detailData.title}"
-            android:textSize="50sp"
-            android:textColor="#fff000"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/album_image"
-            app:layout_constraintTop_toBottomOf="@+id/album_image" />
+    <TextView
+        android:id="@+id/txt_firstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="title"
+        android:textSize="50sp"
+        android:textColor="#fff000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profile_image"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-        <TextView
-            android:id="@+id/producer_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@{detailData.producer}"
-            android:textSize="20sp"
-            android:textColor="#fff000"
-            app:layout_constraintStart_toStartOf="@+id/title_text"
-            app:layout_constraintTop_toBottomOf="@+id/title_text" />
+    <TextView
+        android:id="@+id/txt_lastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="producer"
+        android:textSize="20sp"
+        android:textColor="#fff000"
+        app:layout_constraintStart_toStartOf="@+id/txt_firstName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_firstName" />
 
-        <TextView
-            android:id="@+id/genre_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@{detailData.genre}"
-            android:textSize="20sp"
-            android:textColor="#fff000"
-            app:layout_constraintStart_toStartOf="@+id/title_text"
-            app:layout_constraintTop_toBottomOf="@+id/producer_text" />
+    <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="genre"
+        android:textSize="20sp"
+        android:textColor="#fff000"
+        app:layout_constraintStart_toStartOf="@+id/txt_firstName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_lastName" />
 
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{detailData.date}"
-            android:textSize="20sp"
-            android:textColor="#fff000"
-            app:layout_constraintEnd_toEndOf="@+id/album_image"
-            app:layout_constraintTop_toTopOf="@+id/genre_text" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

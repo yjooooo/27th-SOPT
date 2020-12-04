@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@drawable/round_list">
+
+    <TextView
+        android:id="@+id/searchItem_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="타이틀"
+        android:textSize="27sp"
+        android:textColor="#fff000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/searchItem_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="내용"
+        android:textSize="20sp"
+        android:textColor="#fff000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchItem_title" />
+
+    <TextView
+        android:id="@+id/searchItem_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주소"
+        android:textSize="15sp"
+        android:textColor="#fff000"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/searchItem_content"
+        app:layout_constraintTop_toBottomOf="@id/searchItem_content"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/searchItem_date"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="날짜"-->
+<!--        android:textSize="15sp"-->
+<!--        android:textColor="#fff000"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/searchItem_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/searchItem_url"/>-->
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

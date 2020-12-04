@@ -2,11 +2,11 @@ package com.yjoos.term_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
-import com.yjoos.term_project.databinding.ActivityDetailBinding
+import com.bumptech.glide.Glide
+import com.yjoos.term_project.rcv.SampleData
 import kotlinx.android.synthetic.main.activity_detail.*
 
 //global scope에서 바인딩 어댑터 선언해야됨...
@@ -17,29 +17,18 @@ fun bindImage(view: ImageView, @DrawableRes image: Int) {
 
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var dbinding: ActivityDetailBinding
-    var imageNum: Int = R.drawable.loading
-    var title: String = "제목"
-    var date: String = "발매일"
-    var producer: String = "프로듀서"
-    var genre: String = "장르"
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dbinding = ActivityDetailBinding.inflate(LayoutInflater.from(this))
+        setContentView(R.layout.activity_detail)
 
-        setContentView(dbinding.root)
+        var listData = intent.getParcelableExtra<SampleData>("listData")
 
-        dbinding.detailData = this
-
-        var albumData = intent.getParcelableExtra<SampleData>("albumData")
-
-        title = albumData.title
-        date = albumData.date
-        producer = albumData.producer
-        genre = albumData.genre
-        imageNum = albumData.imageNum
+        txt_firstName.text = listData.firstName
+        txt_email.text = listData.email
+        txt_lastName.text = listData.lastName
+        Glide.with(this).load(listData.imageSrc).placeholder(R.drawable.loading).error(R.drawable.loading).into(profile_image)
+        //genre = albumData.genre
+        //imageNum = albumData.imageNum
     }
 
 }

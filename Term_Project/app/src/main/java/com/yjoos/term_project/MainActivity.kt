@@ -9,6 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.yjoos.term_project.connect_server.SampleRequestData
+import com.yjoos.term_project.connect_server.SampleResponseData
+import com.yjoos.term_project.connect_server.SampleServiceImpl
 import com.yjoos.term_project.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.ResponseBody
@@ -55,37 +58,44 @@ class MainActivity : AppCompatActivity() {
         login_btn.setOnClickListener {
             val id = id_edt.text.toString()
             val pw = pw_edt.text.toString()
-            val call: Call<SampleResponseData> = SampleServiceImpl.service.postLogin(
-                SampleRequestData(email = id, password = pw)
-            )
-            call.enqueue(object: Callback<SampleResponseData> {
-                override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
+            if(id_edt.text.toString()!=""
+                && pw_edt.text.toString()!=""){
+                val call: Call<SampleResponseData> = SampleServiceImpl.baseService.postLogin(
+                    SampleRequestData(email = id, password = pw)
+                )
+                call.enqueue(object: Callback<SampleResponseData> {
+                    override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
 
-                }
+                    }
 
-                override fun onResponse(
-                    call: Call<SampleResponseData>,
-                    response: Response<SampleResponseData>
-                ) {
-                    Log.d("tag", response.body()!!.status.toString())
-                    response.takeIf{ it.isSuccessful }
-                        ?.body()
-                        ?.let{ data ->
-                            Log.d("tag", response.body()!!.status.toString())
-                            idpwEditor.putString("id",data.data.email)
-                            idpwEditor.putString("pw",data.data.password)
-                            idpwEditor.commit()
-                            Toast.makeText(this@MainActivity, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                            startActivity(homeIntent)
-                        } ?: showError(response.errorBody())
-                }
+                    override fun onResponse(
+                        call: Call<SampleResponseData>,
+                        response: Response<SampleResponseData>
+                    ) {
+                        Log.d("tag", response.body()!!.status.toString())
+                        response.takeIf{ it.isSuccessful }
+                            ?.body()
+                            ?.let{ data ->
+                                Log.d("tag", response.body()!!.status.toString())
+                                idpwEditor.putString("id",data.data.email)
+                                idpwEditor.putString("pw",data.data.password)
+                                idpwEditor.commit()
+                                Toast.makeText(this@MainActivity, "로그인이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                startActivity(homeIntent)
+                            } ?: showError(response.errorBody())
+                    }
 
-                private fun showError(error: ResponseBody?) {
-                    val e = error ?: return
-                    val ob = JSONObject(e.string())
-                    Toast.makeText(this@MainActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
-                }
-            })
+                    private fun showError(error: ResponseBody?) {
+                        val e = error ?: return
+                        val ob = JSONObject(e.string())
+                        Toast.makeText(this@MainActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
+                    }
+                })
+            } else{
+                Toast.makeText(this, "아이디와 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
+
 
 //            //서버통신 전
 //            if(id_edt.text.toString()!=""

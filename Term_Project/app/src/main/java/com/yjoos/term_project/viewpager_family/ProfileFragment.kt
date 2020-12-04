@@ -1,10 +1,11 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.viewpager_family
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.yjoos.term_project.R
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {

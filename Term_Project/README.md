@@ -1,3 +1,249 @@
+# 🚩6th Week
+
+1. 실행 영상
+2. 필수 과제 - 로그인 / 회원가입 서버 통신 구현하기
+3. 성장 과제1 - 더미데이터를 받아와서 리사이클러뷰 리스트 구성하기
+4. 성장과제2 - 카카오 웹 검색 api 사용해보기
+
+
+
+### 🎥실행영상
+
+
+
+### 🍒안드로이드에서 서버통신을 하기 위한 준비! (from 밍구르맹구르's 명강의)
+
+1. 라이브러리 추가
+2. 서버 API문서 확인 후 테스트
+3. Retrofit Interface 설계
+4. 서버 Request / Response 객체 설계
+5. Retrofit Interface 실제 구현체 만들기
+6. Callback 등록하여 통신 요청
+
+
+
+### 📋필수과제 - 로그인 / 회원가입 서버 통신 구현하기
+
+- Retrofit 라이브러리와 Gson 라이브러리를 사용하기위해 gradle 파일에 다음을 추가해준다.
+
+  ```kotlin
+  // https://github.com/square/retrofit
+  implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+  // Retrofit 라이브러리 응답으로 가짜 객체를 만들기 위함
+  implementation 'com.squareup.retrofit2:retrofit-mock:2.9.0'
+  // https://github.com/google/gson
+  implementation 'com.google.code.gson:gson:2.8.6'
+  // Retrofit에서 Gson을 사용하기 위한 라이브러리
+  implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+  ```
+
+- 먼저 인터넷 권한을 허용 해주고, http 프로토콜 접속을 예외 처리 해준다.
+
+  ```kotlin
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <application
+      android:usesCleartextTraffic="true"
+      ...
+      ></application>
+  ```
+
+- 식별 URL을 Interface로 설계한다.
+
+  - 사용할 메소드에 경로를 함께 작성한다.
+  - @Body 어노테이션을 통해서 RequestBody를 설정한다.
+  - +) @Path = URL에 들어가는 변경가능한 경로를 표현
+  - +) @Query = 쿼리 매개변수를 사용할 경우
+  - Call<>객체 = 비동기 통신을 도와주는 Retrofit에서 제공하는 객체
+
+  ```kotlin
+  interface SampleService {
+      @Headers("Content-Type:application/json")
+      @POST("/users/signup")
+      fun postSignup(
+          @Body body: SampleSignupRequestData
+      ) : Call<SampleResponseData>
+      @POST("/users/signin")
+      fun postLogin(
+          @Body body: SampleRequestData
+      ) : Call<SampleResponseData>
+  }
+  ```
+
+- 서버 Request / Response 객체 설계한다. 
+
+  - 로그인 / 회원가입의 Response 객체에 내용이 같기 때문에 Response 객체는 하나로 만들었으며 각각의 Request 객체를 만들었다.
+
+  - 회원가입 Request 객체
+
+    ```kotlin
+    data class SampleSignupRequestData(
+        val email: String,
+        val password: String,
+        val userName: String
+    )
+    ```
+
+  - 로그인 Request 객체
+
+    ```kotlin
+    data class SampleRequestData(
+        val email: String,
+        val password: String
+    )
+    ```
+
+  - 공통 Response 객체
+
+    ```kotlin
+    data class SampleResponseData(
+        val status: Int,
+        val success: Boolean,
+        val message: String,
+        val data: Data
+    ){
+        data class Data(
+            val email: String,
+            val password: String,
+            val userName: String
+        )
+    }
+    ```
+
+- Retrofit Interface 실제 구현체 만들기
+
+  - 실제 구현체를 싱글톤을 만들었다.
+
+  - 싱글톤 패턴이란? <br>
+    : 어떤 클래스의 인스턴스는 오직 하나임을 보장하며, 이 인스턴스에 접근할 수 있는 전역적인 접촉점을 제공하는 패턴이다.
+
+  - 코틀린에서는 객체 선언(object) 기능을 통해 싱글톤을 언어 자체에서 기본 지원해준다고 합니다.
+
+  - 싱글톤 선언은 object 키워드로 시작하면되고, 코틀린에서 사용 시에는 객체명만으로 사용할 수 있다고 합니다.
+
+  - SampleServiceImpl.kt
+
+    - 로그인 / 회원가입 서버를 BASE_URL변수에 정의한다.
+    - Retrofit.Builder() : 레트로핏 빌더를 생성한다. (생성자를 호출하는 것.)
+    - baseUrl(BASE_URL) : 빌더 객체의 baseUrl을 호출한다. 서버의 메인 URL을 전달한다.
+    - addConverterFactory(GsonConverterFactory.create()) : gson을 연동한다.
+    - build() : Retrofit 객체를 반환한다.
+    - 마지막으로 Interface 객체를 넘겨서 실제 구현체를 생성한다. (아까 만들어둔 SampleService 인터페이스를 넣어주면 된다.)
+
+    ```kotlin
+    object SampleServiceImpl {
+        private const val BASE_URL = "http://15.164.83.210:3000"
+      
+        private val baseRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val baseService: SampleService = baseRetrofit.create(SampleService::class.java)
+    }
+    ```
+
+- Callback 등록하여 통신 요청
+
+  - Call과 Callback의 차이점
+
+    - Call<타입> : 비동기적으로 타입을 받아오는 객체
+    - Callback<타입> : 타입 객체를 받아왔을 때 프로그래머의 행동
+
+  - 로그인 / 회원가입이 이루어지는 곳에서 Call 객체를 받아와서 싱글톤 객체를 이용한다.
+
+  - enqueue를 호출하면 실제 서버 통신을 비동기적으로 요청할 수 있다.
+
+  - Callback 익명클래스를 선언한다.
+
+  - onFailure : 통신이 실패했을 경우, 에러 처리에 대한 코드
+
+  - onResponse : 통신이 성공했다면 호출됨. <br>
+    response.body() 에 우리가 원하는 데이터가 있다. <br>
+    response.isSuccessful은 Status Code가 200~300일 경우 true를 반환한다.
+
+  - showError(response.errorBody()) : response.isSuccessful이 false거나 body()에 값이 없을 경우 에러처리를 한다.
+
+    ```kotlin
+    val call: Call<SampleResponseData> = SampleServiceImpl.baseService.postSignup(
+        SampleSignupRequestData(email = id, password = pw, userName = userName)
+    )
+    call.enqueue(object: Callback<SampleResponseData>{
+        override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
+            //통신 실패 로직
+        }
+        override fun onResponse(
+            call: Call<SampleResponseData>,
+            response: Response<SampleResponseData>
+        ) {
+          response.takeIf{ it.isSuccessful }
+                                ?.body()
+                                ?.let{ data ->
+                                   ...
+                                } ?: showError(response.errorBody())
+        }
+        private fun showError(error: ResponseBody?) {
+            val e = error ?: return
+            val ob = JSONObject(e.string())
+            Toast.makeText(this@SignUpActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
+        }
+    })
+    ```
+
+  - 
+
+     
+
+
+
+### 📋성장 과제1 - 더미데이터를 받아와서 리사이클러뷰 리스트 구성하기
+
+- 서버 연결 방법은 위의 방법과 같으니 서버에서 받아온 URL을 통해 이미지를 띄우는 방법을 정리해보려고 한다.
+
+- 먼저, 리사이클러뷰에 들어갈 데이터의 내용 중 서버에서 받아온 URL을 통해 이미지를 띄우기 위해 이미지 로딩 라이브러리인 Glide를 사용할 것이다.<br>
+  gradle파일에 다음을 추가해준다.
+
+  ```kotlin
+  //Glide 사용
+  implementation 'com.github.bumptech.glide:glide:4.11.0'
+  annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+  ```
+
+- Glide 사용법은 다음과 같다.
+
+  - with(context) : context 객체 필요
+
+  - load("url") : 불러올 이미지 url을 입력한다.
+
+  - placeholder(이미지) : loading 중에 보여질 이미지
+
+  - error(이미지) : 이미지 로딩이 에러났을 경우 보여질 이미지
+
+  - into(xml에서의 이미지뷰 아이디) : 이미지가 보여질 ImageView
+
+  - ```kotlin
+    Glide.with(itemView).load(data.imageSrc).placeholder(R.drawable.loading).error(R.drawable.loading).into(imageSrc)
+    ```
+
+### 📋성장과제2 - 카카오 웹 검색 api 사용해보기
+
+- 검색한 후 검색데이터를 가져올 때 html태그가 같이 보이는데 그것을 없애기 위해 메소드를 생성했다 .<br>
+
+  ```kotlin
+  fun removeHtmlTag(html : String) : String {
+      return Html.fromHtml(html).toString()
+  }
+  ```
+
+- 왼쪽 : 태그 제거 전, 오른쪽 : 태그 제거 후
+
+  <div>
+      <img width="200" src="https://user-images.githubusercontent.com/68374234/101168465-d444f400-367e-11eb-92e0-b52f85050802.jpeg">
+      <img width="200" src="https://user-images.githubusercontent.com/68374234/101168455-d27b3080-367e-11eb-8a7c-062d46f2bba2.jpeg">
+  </div>
+
+
+
+
+
 # 🚩3rd Week
 
 1. 실행 영상

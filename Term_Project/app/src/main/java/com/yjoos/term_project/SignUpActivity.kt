@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.yjoos.term_project.connect_server.SampleResponseData
+import com.yjoos.term_project.connect_server.SampleServiceImpl
+import com.yjoos.term_project.connect_server.SampleSignupRequestData
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -29,16 +32,13 @@ class SignUpActivity : AppCompatActivity() {
             if (userName != ""
                 && id != ""
                 && pw != ""){
-
-
-                val call: Call<SampleResponseData> = SampleServiceImpl.service.postSignup(
+                val call: Call<SampleResponseData> = SampleServiceImpl.baseService.postSignup(
                     SampleSignupRequestData(email = id, password = pw, userName = userName)
                 )
                 call.enqueue(object: Callback<SampleResponseData>{
                     override fun onFailure(call: Call<SampleResponseData>, t: Throwable) {
                         //통신 실패 로직
                     }
-
                     override fun onResponse(
                         call: Call<SampleResponseData>,
                         response: Response<SampleResponseData>
@@ -54,15 +54,12 @@ class SignUpActivity : AppCompatActivity() {
                             } ?: showError(response.errorBody())
 
                     }
-
                     private fun showError(error: ResponseBody?) {
                         val e = error ?: return
                         val ob = JSONObject(e.string())
                         Toast.makeText(this@SignUpActivity, ob.getString("message"),Toast.LENGTH_SHORT).show()
                     }
                 })
-
-
                 //startActivityForResult(signIntent, 1)
             }
             else{

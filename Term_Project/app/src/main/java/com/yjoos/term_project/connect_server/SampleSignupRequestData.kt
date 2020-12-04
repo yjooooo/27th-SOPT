@@ -1,4 +1,4 @@
-package com.yjoos.term_project
+package com.yjoos.term_project.connect_server
 
 data class SampleSignupRequestData(
     val email: String,
