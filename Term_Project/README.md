@@ -9,6 +9,13 @@
 
 ### 🎥실행영상
 
+<div>
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/101171702-7cf55280-3683-11eb-9967-fe6ef0cd5bd9.gif">
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/101171665-71a22700-3683-11eb-9003-a25d1c54ac8d.gif">
+  <img width="200" src="https://user-images.githubusercontent.com/68374234/101171996-e83f2480-3683-11eb-9767-25c682cc8d04.gif">
+    <img width="200" src="https://user-images.githubusercontent.com/68374234/101172017-effec900-3683-11eb-9d9d-d056271a0fa1.gif">
+</div>
+
 
 
 ### 🍒안드로이드에서 서버통신을 하기 위한 준비! (from 밍구르맹구르's 명강의)
